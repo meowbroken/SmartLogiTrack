@@ -1,0 +1,133 @@
+/* General container styling */
+.container {
+  margin: 20px auto;
+  max-width: 900px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+h2 {
+  text-align: center;
+  color: #1f293a;
+  margin-bottom: 20px;
+}
+
+/* Error message styling */
+.error-message {
+  color: #d9534f;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Loading spinner styling */
+.loading-spinner {
+  text-align: center;
+  font-size: 16px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+/* Form styling */
+form {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  color: #555;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #1f293a;
+  color: #fff;
+}
+
+thead th {
+  padding: 10px;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #e9ecef;
+}
+
+tbody td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+td button {
+  margin-right: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 12px;
+  }
+}

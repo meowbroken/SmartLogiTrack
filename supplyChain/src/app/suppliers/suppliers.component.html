@@ -1,0 +1,33 @@
+<app-sidebar></app-sidebar>
+
+<div class="suppliers-container">
+    <h2>Suppliers</h2>
+    <div *ngFor="let supplier of suppliers" class="supplier-card">
+      <h3>{{ supplier.name }}</h3>
+      <p><strong>Contact:</strong> {{ supplier.contact_info }}</p>
+      <p><strong>Average Lead Time:</strong> {{ supplier.average_lead_time }} days</p>
+  
+      <!-- Check if the supplier has any orders -->
+      <div *ngIf="supplier.orders && supplier.orders.length > 0">
+        <h4>Orders</h4>
+        <ul>
+          <li *ngFor="let orderId of supplier.orders" class="order-item">
+            <span>Order ID: {{ orderId }}</span>
+            <!-- Button to toggle order details -->
+            <button (click)="getOrderDetails(orderId)">Toggle Order Details</button>
+            <!-- Display order details if they exist -->
+            <div *ngIf="orderDetails[orderId]" class="order-details">
+              <p><strong>Order Type:</strong> {{ orderDetails[orderId].order_type }}</p>
+              <p><strong>Product:</strong> {{ orderDetails[orderId].product_name }}</p>
+              <p><strong>Quantity:</strong> {{ orderDetails[orderId].quantity }}</p>
+              <p><strong>Date Created:</strong> {{ orderDetails[orderId].date_created }}</p>
+              <p><strong>Status:</strong> {{ orderDetails[orderId].status }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div *ngIf="!supplier.orders || supplier.orders.length === 0">
+        <p>No orders for this supplier.</p>
+      </div>
+    </div>
+  </div>

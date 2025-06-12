@@ -1,0 +1,30 @@
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Sign-up</h2>
+            <form [formGroup]="registerForm" (ngSubmit)="registerOnSubmit()">
+                <div class="input-box">
+                    <input type="text" formControlName="username" required>
+                    <label>Username</label>
+                </div>
+                <div class="input-box">
+                    <input type="email" formControlName="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" formControlName="password" required>
+                    <label>Password</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" formControlName="confirmPassword" required>
+                    <label>Confirm Password</label>
+                </div>
+                <button type="submit" class="btn">Sign-up</button>
+                <div class="signup-link">
+                    <a routerLink="/login">Login</a>
+                </div>
+            </form>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        </div>
+    </div>
+</body>

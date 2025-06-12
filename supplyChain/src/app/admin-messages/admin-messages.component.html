@@ -1,0 +1,25 @@
+<div class="admin-messages-container">
+  <h2>Unanswered User Messages</h2>
+  <div *ngIf="loading" class="text-center my-3">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+  <div class="chat-list">
+    <div *ngFor="let chat of chats" 
+         (click)="selectChat(chat)" 
+         [class.selected]="chat === selectedChat"
+         class="chat-list-item">
+      <b>{{ chat.customer_input }}</b>
+      <span class="timestamp" *ngIf="chat.created_at">{{ chat.created_at | date:'short' }}</span>
+    </div>
+    <div *ngIf="chats.length === 0 && !loading" class="text-muted">No unanswered messages.</div>
+  </div>
+  <div *ngIf="selectedChat" class="chat-detail mt-4">
+    <h4>User Message</h4>
+    <p>{{ selectedChat.customer_input }}</p>
+    <h5>Reply</h5>
+    <textarea [(ngModel)]="adminReply" rows="3" class="form-control" placeholder="Type your reply..."></textarea>
+    <button class="btn btn-primary mt-2" (click)="sendReply()" [disabled]="loading || !adminReply.trim()">Send Reply</button>
+    <div *ngIf="selectedChat.staff_reply" class="alert alert-success mt-2">
+      <b>Sent:</b> {{ selectedChat.staff_reply }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<app-sidebarmain></app-sidebarmain>
+<div class="main-content">
+  <h1>📦 Smartlogitrack</h1>
+  <br><br>
+
+  <!-- Admin Dashboard -->
+  <div *ngIf="isAdmin">
+
+    <!-- Dashboard Cards -->
+    <div class="row g-3">
+      <div class="col-md-3">
+        <a routerLink="/inventory" class="text-decoration-none">
+          <div class="card p-3 text-center shadow-sm">
+            <h3>Inventory</h3>
+            <p>📦 Manage stock levels and trends.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a routerLink="/forecast" class="text-decoration-none">
+          <div class="card p-3 text-center shadow-sm">
+            <h3>Forecast</h3>
+            <p>📊 Predict demand and trends.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a routerLink="/orders" class="text-decoration-none">
+          <div class="card p-3 text-center shadow-sm">
+            <h3>Orders</h3>
+            <p>🛒 Track and manage orders.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3">
+        <a routerLink="/suppliers" class="text-decoration-none">
+          <div class="card p-3 text-center shadow-sm">
+            <h3>Suppliers</h3>
+            <p>🤝 Manage supplier details.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Orders List Section -->
+    <div class="orders-list mt-5">
+      <h2>Received Orders</h2>
+      <div *ngFor="let order of orders" class="order-card card mb-3">
+        <div class="row g-0">
+          <!-- Left: Raw Email Data -->
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">Email Data</h5>
+              <p><strong>From:</strong> {{ order.email_from }}</p>
+              <p><strong>Email Text:</strong></p>
+              <p>{{ order.email_text }}</p>
+            </div>
+          </div>
+          <!-- Right: Extracted Order Data -->
+          <div class="col-md-6 border-start">
+            <div class="card-body">
+              <h5 class="card-title">Extracted Data</h5>
+              <p><strong>Supplier:</strong> {{ order.supplier }}</p>
+              <p><strong>Product:</strong> {{ order.product }}</p>
+              <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+              <p><strong>Order Type:</strong> {{ order.order_type }}</p>
+              <p><strong>Status:</strong> {{ order.status }}</p>
+              <button
+                *ngIf="order.status === 'PENDING'"
+                class="btn btn-success btn-sm mt-2"
+                (click)="markFulfilled(order)">
+                Mark as Fulfilled
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User/Supplier Dashboard -->
+  <div *ngIf="!isAdmin">
+    <!-- Top right chat button -->
+  
+
+    <!-- Assigned Products Section -->
+    <div class="user-section mt-4">
+      <h2>My Assigned Products</h2>
+      <ul>
+        <li *ngFor="let prod of products">{{ prod }}</li>
+      </ul>
+    </div>
+
+    <!-- Pickup Request Form -->
+    <div class="user-section mt-4">
+      <h2>Request Pickup</h2>
+      <form (ngSubmit)="submitPickupRequest()" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Pickup Date & Time</label>
+          <input type="datetime-local" [(ngModel)]="pickup.dateTime" name="dateTime" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Pickup Address</label>
+          <input type="text" [(ngModel)]="pickup.address" name="address" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Product</label>
+          <select [(ngModel)]="pickup.product" name="product" class="form-control" required>
+            <option *ngFor="let prod of products" [value]="prod">{{ prod }}</option>
+          </select>
+        </div>
+        <div class="col-12 mt-3">
+          <button type="submit" class="btn btn-success">Schedule Pickup</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

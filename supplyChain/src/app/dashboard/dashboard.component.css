@@ -1,0 +1,205 @@
+/* General container styling */
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  background-color: #f4f5f7;
+  overflow: hidden;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 80px;
+  background-color: #1f293a;
+  color: #fff;
+  height: 100%;
+  padding: 20px 0;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+}
+
+.sidebar:hover {
+  width: 200px; /* Expand sidebar on hover */
+}
+
+.sidebar a {
+  color: #0ef;
+  font-size: 1.5rem;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+  transition: color 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar a:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.sidebar .bi {
+  font-size: 2rem;
+}
+
+.sidebar .mt-auto {
+  margin-top: auto;
+}
+
+/* Main content styling */
+.main-content {
+  margin-left: 80px;
+  padding: 30px;
+  width: calc(100% - 80px);
+  overflow-y: auto;
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+.sidebar:hover ~ .main-content {
+  margin-left: 200px;
+  width: calc(100% - 200px);
+}
+
+.main-content h1 {
+  color: #1f293a;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Card styling */
+.card {
+  border: 3px solid #0ef;
+  border-radius: 16px; 
+  background-color: #1f293a;
+  padding: 30px 20px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 238, 255, 0.3);
+}
+
+.card h3 {
+  color: #0ef;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card h5 {
+  color: #0ef;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+.card p  {
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+/* Grid layout for cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* User dashboard section styling */
+.user-section {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 24px 20px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(31,41,58,0.08);
+}
+
+.user-section h2 {
+  color: #1976d2;
+  margin-bottom: 18px;
+}
+
+.user-section ul {
+  list-style: disc inside;
+  color: #1f293a;
+  padding-left: 20px;
+}
+
+.user-section form .form-label {
+  font-weight: 500;
+  color: #1976d2;
+}
+
+.user-section form .form-control {
+  border-radius: 8px;
+  border: 1px solid #0ef;
+}
+
+.user-section form .btn-success {
+  background: #0ef;
+  border: none;
+  color: #1f293a;
+  font-weight: bold;
+}
+
+.user-section form .btn-success:hover {
+  background: #1976d2;
+  color: #fff;
+}
+
+.user-section app-chatbot {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar:hover {
+    width: 150px;
+  }
+
+  .main-content {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+
+  .sidebar:hover ~ .main-content {
+    margin-left: 150px;
+    width: calc(100% - 150px);
+  }
+
+  .sidebar a {
+    font-size: 1.2rem;
+  }
+
+  .sidebar .bi {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+  }
+
+  
+}
+
+/* Smooth scrolling for better UX */
+body {
+  scroll-behavior: smooth;
+}
+

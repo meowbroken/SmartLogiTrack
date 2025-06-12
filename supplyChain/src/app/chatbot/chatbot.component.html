@@ -1,0 +1,36 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <h3>📱 Chat Support</h3>
+    <span class="online-status">● Online</span>
+  </div>
+
+  <div class="messages-container">
+    <div *ngFor="let msg of messages" class="message-wrapper" [ngClass]="msg.sender">
+      <div class="message-bubble">
+        <div class="message-content">
+          <span *ngIf="!msg.isHtml">{{ msg.text }}</span>
+          <span *ngIf="msg.isHtml" [innerHTML]="msg.text"></span>
+        </div>
+        <div class="message-timestamp">{{ msg.timestamp | date:'shortTime' }}</div>
+      </div>
+      <div *ngIf="msg.sentiment">
+        <span *ngIf="msg.sentiment === 'positive'">😊</span>
+        <span *ngIf="msg.sentiment === 'negative'">😞</span>
+        <span *ngIf="msg.sentiment === 'neutral'">😐</span>
+      </div>
+    </div>
+    <div #messagesEnd></div>
+  </div>
+
+  <div class="chat-input-container">
+    <input 
+      [(ngModel)]="userInput" 
+      (keyup.enter)="sendMessage()" 
+      placeholder="Type your message..." 
+      class="chat-input"
+    />
+    <button (click)="sendMessage()" class="send-button">
+      <i class="bi bi-send-fill"></i>
+    </button>
+  </div>
+</div>

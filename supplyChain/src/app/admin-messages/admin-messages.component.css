@@ -1,0 +1,41 @@
+.admin-messages-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.chat-list {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.chat-list-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f1f1;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chat-list-item:last-child {
+  border-bottom: none;
+}
+
+.chat-list-item.selected, .chat-list-item:hover {
+  background: #e3f2fd;
+}
+
+.timestamp {
+  float: right;
+  color: #888;
+  font-size: 0.9em;
+}
+
+.chat-detail textarea.form-control {
+  margin-bottom: 8px;
+}

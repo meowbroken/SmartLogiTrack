@@ -1,0 +1,26 @@
+.inventory-container {
+  background-color: #1f293a;
+  padding: 20px;
+  border-radius: 8px;
+  margin-right: 50px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.btn-add-inventory {
+    background-color: #2c4766;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-add-inventory:hover {
+    background-color: #0ef; /* Slightly darker shade for hover effect */
+  }
+
+ 
+h1, h2, label {
+    color: #fff; /* Set font color to white */
+  }

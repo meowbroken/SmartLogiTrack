@@ -1,0 +1,189 @@
+<!-- In index.html or angular.json -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+/>
+<app-sidebar></app-sidebar>
+
+<div class="container my-4">
+  <h2 class="mb-4">
+    <i class="bi bi-card-checklist me-2"></i> Order Management
+  </h2>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    <i class="bi bi-exclamation-triangle me-1"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Order Form -->
+  <form (ngSubmit)="isEditMode ? updateOrder() : createOrder()" [formGroup]="orderForm">
+    <!-- Form fields -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="orderType" class="form-label">Order Type</label>
+        <select id="orderType" formControlName="order_type" class="form-select">
+          <option *ngFor="let type of orderTypes" [value]="type.value">{{ type.label }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="product" class="form-label">Product</label>
+        <select id="product" formControlName="product" class="form-select">
+          <option *ngFor="let product of products" [value]="product.id">{{ product.name }}</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input type="number" id="quantity" formControlName="quantity" class="form-control" />
+      </div>
+    </div>
+  
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="status" class="form-label">Status</label>
+        <select id="status" formControlName="status" class="form-select">
+          <option *ngFor="let status of statusChoices" [value]="status.value">{{ status.label }}</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label for="supplier" class="form-label">Supplier</label>
+        <select id="supplier" formControlName="supplier" class="form-select">
+          <option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</option>
+        </select>
+      </div>
+    </div>
+  
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary w-100" [disabled]="orderForm.invalid">
+      {{ isEditMode ? 'Update Order' : 'Create Order' }}
+    </button>
+  </form>
+  <!-- Orders List: Grouped by Category -->
+
+  <!-- Pending Orders -->
+  <h3 class="mt-4">
+    <i class="bi bi-hourglass-split me-2"></i> Pending Orders
+  </h3>
+  <div class="table-responsive" *ngIf="pendingOrders.length; else noPending">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th><i class="bi bi-arrow-down-circle"></i> Order Type</th>
+          <th><i class="bi bi-box-seam"></i> Product</th>
+          <th><i class="bi bi-stack"></i> Quantity</th>
+          <th><i class="bi bi-info-circle"></i> Status</th>
+          <th><i class="bi bi-building"></i> Supplier</th>
+          <th><i class="bi bi-calendar-event"></i> Date Created</th>
+          <th><i class="bi bi-gear"></i> Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of pendingOrders">
+          <td>{{ order.order_type }}</td>
+          <td>{{ order.product_name }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.supplier_name }}</td>
+          <td>{{ order.date_created | date: 'medium' }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-1" (click)="editOrder(order)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noPending>
+    <p class="text-muted">No pending orders.</p>
+  </ng-template>
+
+  <!-- Fulfilled Incoming Orders -->
+  <h3 class="mt-4">
+    <i class="bi bi-check-circle me-2"></i> Fulfilled Orders - Incoming
+  </h3>
+  <div class="table-responsive" *ngIf="fulfilledIncomingOrders.length; else noFulfilledIncoming">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th><i class="bi bi-arrow-down-circle"></i> Order Type</th>
+          <th><i class="bi bi-box-seam"></i> Product</th>
+          <th><i class="bi bi-stack"></i> Quantity</th>
+          <th><i class="bi bi-info-circle"></i> Status</th>
+          <th><i class="bi bi-building"></i> Supplier</th>
+          <th><i class="bi bi-calendar-event"></i> Date Created</th>
+          <th><i class="bi bi-gear"></i> Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of fulfilledIncomingOrders">
+          <td>{{ order.order_type }}</td>
+          <td>{{ order.product_name }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.supplier_name }}</td>
+          <td>{{ order.date_created | date: 'medium' }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-1" (click)="editOrder(order)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noFulfilledIncoming>
+    <p class="text-muted">No fulfilled incoming orders.</p>
+  </ng-template>
+
+  <!-- Fulfilled Outgoing Orders -->
+  <h3 class="mt-4">
+    <i class="bi bi-check2-circle me-2"></i> Fulfilled Orders - Outgoing
+  </h3>
+  <div class="table-responsive" *ngIf="fulfilledOutgoingOrders.length; else noFulfilledOutgoing">
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th><i class="bi bi-arrow-up-circle"></i> Order Type</th>
+          <th><i class="bi bi-box-seam"></i> Product</th>
+          <th><i class="bi bi-stack"></i> Quantity</th>
+          <th><i class="bi bi-info-circle"></i> Status</th>
+          <th><i class="bi bi-building"></i> Supplier</th>
+          <th><i class="bi bi-calendar-event"></i> Date Created</th>
+          <th><i class="bi bi-gear"></i> Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of fulfilledOutgoingOrders">
+          <td>{{ order.order_type }}</td>
+          <td>{{ order.product_name }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.supplier_name }}</td>
+          <td>{{ order.date_created | date: 'medium' }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm me-1" (click)="editOrder(order)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteOrder(order.id)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ng-template #noFulfilledOutgoing>
+    <p class="text-muted">No fulfilled outgoing orders.</p>
+  </ng-template>
+</div>

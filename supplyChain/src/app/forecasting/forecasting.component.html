@@ -1,0 +1,33 @@
+<app-sidebar></app-sidebar>
+<div class="container">
+  <h2>Forecast Table</h2>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    Loading forecasts...
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Date</th>
+        <th>Predicted</th>
+        <th>Lower</th>
+        <th>Upper</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let forecast of forecasts">
+        <td>{{ forecast.product }}</td>
+        <td>{{ forecast.date }}</td>
+        <td>{{ forecast.predicted }}</td>
+        <td>{{ forecast.lower }}</td>
+        <td>{{ forecast.upper }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
